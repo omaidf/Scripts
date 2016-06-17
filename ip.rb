@@ -1,14 +1,14 @@
 require "net/http"
 require "uri"
 
-uri = URI.parse("http://whatismyip.akamai.com/")
 
+
+def whatip()
+uri = URI.parse("http://whatismyip.akamai.com/")
 # Shortcut
 response = Net::HTTP.get_response(uri)
-
 # Will print response.body
 puts Net::HTTP.get_print(uri)
+end
 
-# Full
-http = Net::HTTP.new(uri.host, uri.port)
-response = http.request(Net::HTTP::Get.new(uri.request_uri))
+whatip()
