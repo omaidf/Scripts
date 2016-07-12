@@ -1,15 +1,16 @@
 require "rubygems"
 require "rest_client"
 require "json"
-require "filesize"
 
-#user = ARGV[0] #first argument should be repository to parse
+user = ARGV[0] #first argument should be repository to parse
 user_name = 'admin' #change this
 password= 'password' #change this
-artifactory  = "http://127.0.0.1:8081/artifactory/api/security/users/omar" #change this
-permissiontargets = "http://127.0.0.1:8081/artifactory/api/security/permissions"
+artifactory  = "http://127.0.0.1:8081/artifactory/api/security/users/"
+permissiontargets = "http://127.0.0.1:8081/artifactory/api/security/permissions" #all permission targets
 
-url = artifactory #+ user
+first = 0
+
+url = artifactory + user
 site = RestClient::Resource.new(url, user_name, password)
 response = site.get(:accept=>"application/json")
 string = response.body
@@ -25,34 +26,27 @@ while first < groups
 end
 
 
-site2 = RestClient::Resource.new(permissiontargets, user_name, password)
-response2 = site2.get(:accept=>"application/json")
-string2 = response2.body
+site = RestClient::Resource.new(permissiontargets, user_name, password)
+response = site.get(:accept=>"application/json")
+string2 = response.body
 parsed2 = JSON.parse(string)
-parsed2.map
 targets = parsed2.count 
-target0 = 0
-first = 0
+
 #finds all permission targets
 
+#adds the users groups for each array
+target0 = 0
+array.each{|i|
 while target0 < targets
-	site3 = RestClient::Resource.new(parsed[target0]["uri"], user_name, password)
-	response3 = site3.get(:accept=>"application/json")
-	string3 = response3.body
-	parsed3 = JSON.parse(string)
-	parsed3.map
+	site = RestClient::Resource.new(parsed2[target0]["uri"], user_name, password)
+	response = site.get(:accept=>"application/json")
+	string = response.body
+	parsed = JSON.parse(string)
+	if parsed["principals"]["groups"][i].nil? == false
+		puts parsed["principals"]["groups"][i]
+	end
 	target0 += 1
-	
-
 end
 
-
-
-
-#adds the users groups for each array
-
-array.each{|i|
-
-puts parsed2["principals"]["groups"][i].nil?
 
 }
