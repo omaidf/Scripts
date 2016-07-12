@@ -34,14 +34,16 @@ targets = parsed2.count
 
 #finds all permission targets
 
-#adds the users groups for each array
+
 target0 = 0
 array.each{|i|
+	#see if group is in any permission targets
 while target0 < targets
 	site = RestClient::Resource.new(parsed2[target0]["uri"], user_name, password)
 	response = site.get(:accept=>"application/json")
 	string = response.body
 	parsed = JSON.parse(string)
+	#if group is in permission target json, print permission target
 	if parsed["principals"]["groups"][i].nil? == false
 		puts parsed["principals"]["groups"][i]
 	end
