@@ -10,7 +10,7 @@ end
 repo = ARGV[0] #first argument should be repository to parse
 user_name = 'admin' #change this
 password= 'password' #change this
-artifactory  = "http://artifactory.inc.jfrog.local:8081/artifactory/api/storage/" #change this to your artifactory
+artifactory  = "http://127.0.0.1:8081/artifactory/api/storage/" #change this to your artifactory
 listfolders = "?list&deep=1&listFolders=1" #File List Rest API
 statfile = "?stats" #File Statistics Rest API
 $i = 0
