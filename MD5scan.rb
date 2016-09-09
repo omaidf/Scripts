@@ -1,8 +1,9 @@
+
 require 'uirusu'
 require "rubygems"
 require "rest_client"
 require "json"
-API_KEY = "85f2b9a41355bc354bde2894e0e27205e3e50e51a8da7cf4724813c996d23326"
+API_KEY = "APIKEY"
 #get your own API Key at https://www.virustotal.com/en/documentation/public-api/
 md5 = ARGV[0] #first argument should be MD5 to check
 user_name = 'admin'
@@ -24,4 +25,4 @@ output.each_line do |line|
 			response2 = site2.put(:accept=>"application/json")	
 	end
 end
-puts "Finished!"	
+puts "Finished!"
